@@ -66,6 +66,9 @@ class Play extends Phaser.Scene {
             'pan2', 0, 20).setOrigin(0,0);
         this.pans1 = new Spaceship(this, game.config.width, 570, 
             'pan1', 0, 10).setOrigin(0,0);
+
+        //Creates gibby
+        this.gibbay = this.add.sprite(320, -300, 'gibby');
        
         /////////////////////////////////////////////////////////////////////////////////////////////
         //Player Movement
@@ -87,9 +90,6 @@ class Play extends Phaser.Scene {
         .setScale(0.5, 0.5).setOrigin(0.0);
         this.p2Rocket = new Rocket(this, game.config.width/2, 750, `bacon`, keyA, keyD, keyW)
         .setScale(0.5, 0.5).setOrigin(0.0);
-
-        //Creates gibby
-        this.gibbay = this.add.sprite(320, -300, 'gibby');
 
         /////////////////////////////////////////////////////////////////////////////////////////////
         //SCORE
@@ -237,19 +237,16 @@ class Play extends Phaser.Scene {
         this.calcTotal();
 
         //Gibby
-        if(Phaser.Input.Keyboard.JustDown(gibbyButton) && !gibbyFire){
+        if(Phaser.Input.Keyboard.JustDown(gibbyButton)){
+            //Creates gibby
+            this.gibbay = this.add.sprite(320, -300, 'gibby');
             this.sound.play('gibby');
             gibbyFire = true;
+            this.gibbay.y += 13;
         }
 
         if(gibbyFire)
             this.gibbay.y += 13;
-
-        if(this.gibbay.y > 1000){
-            gibbyFire = false;
-            this.gibbay.y = -300;
-        }
-
 
     }
 
